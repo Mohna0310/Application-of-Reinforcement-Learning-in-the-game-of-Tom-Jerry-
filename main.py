@@ -13,9 +13,6 @@ from IPython import display
 from IPython.display import HTML
 get_ipython().run_line_magic('matplotlib', 'inline')
 
-
-# Environment
-
 class Environment:
 
   def __init__(self, grid_size):
@@ -135,8 +132,6 @@ class Environment:
 
     return self.state
 
-# This runs the environment using random actions.
-
 print('Setting up environment')
 env = Environment(5)
 num_episodes = 1 # number of games we want the agent to play
@@ -160,10 +155,7 @@ for episode in range(num_episodes):
     if done:
       break
 
-
 # Brain
-
-
 
 #-------------------- BRAIN --------------------------
 
@@ -199,13 +191,10 @@ class Brain:
   def predictOne(self, s):
     return self.predict(s.reshape(1, self.state_dim)).flatten()
 
-
 #  Memory
 
-# In this block we are defining the main functions that will be used to store the experiences of our agent.
-
-
 #-------------------- MEMORY --------------------------
+
 class Memory:   # stored as ( s, a, r, s_ )
 
   def __init__(self, capacity):
@@ -227,16 +216,11 @@ class Memory:   # stored as ( s, a, r, s_ )
     n = min(n, len(self.samples))
     return random.sample(self.samples, n)
 
-
 # Agent
-
 
 #-------------------- AGENT ---------------------------
 
 class Agent:
-  """The agent, which learns to navigate the environment
-  
-  """
   
   def __init__(self, state_dim, action_dim, memory_capacity = 10000,
               batch_size = 64, gamma = 0.99, lamb = 0.001,
@@ -397,7 +381,6 @@ for episode in range(num_episodes):
 
 agent.brain.model.save("brain.h5")
 
-
 plt.figure(figsize=(8, 6), dpi=80)
 plt.title("Epsilon")
 plt.xlabel("Episode")
@@ -417,7 +400,6 @@ get_ipython().system(' apt install ffmpeg')
 get_ipython().system(' which ffmpeg')
 plt.rcParams['animation.ffmpeg_path'] = u'/usr/bin/ffmpeg'
 
-
 fig, ax = plt.subplots()
 plt.axis('off')
 l = ax.imshow(frames[0])
@@ -431,7 +413,6 @@ ani = animation.FuncAnimation(fig, animate, frames=len(frames))
 
 ani.save('animation.mp4', writer=writer, dpi=220)
 time.sleep(5) 
-
 
 # To Save Brain
 files.download("brain.h5")
